@@ -13,17 +13,17 @@ const DeleteModel = ({ show, handleClose, handleDelete }) => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
+          <Modal.Title>Подтвердите удаление</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete this contact(s)?
+          Вы уверенны что хотите удалить контакт(ы)?
         </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={handleClose}>
-            Cancel
+            Отмена
           </Button>
           <Button variant='danger' onClick={handleDelete}>
-            Delete
+            Удалить
           </Button>
         </Modal.Footer>
       </Modal>

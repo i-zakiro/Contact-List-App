@@ -5,32 +5,28 @@ import { useEffect, useState } from 'react';
 import './contactinfo.scss';
 
 const ContactInfo = (props) => {
-  const { id, fname, lname, email, phone, company, Role, address } =
+  const { id, name, email, phone, company, address } =
     props.activeContact;
 
   const [contact, setContact] = useState({
     id: id,
-    fname: fname,
-    lname: lname,
+    name: name,
     email: email,
     phone: phone,
     company: company,
-    Role: Role,
     address: address,
   });
 
   useEffect(() => {
     setContact({
       id: id,
-      fname: fname,
-      lname: lname,
+      name: name,
       email: email,
       phone: phone,
       company: company,
-      Role: Role,
       address: address,
     });
-  }, [id, fname, lname, email, phone, company, Role, address]);
+  }, [id, name, email, phone, company, address]);
 
   return (
     <div className='main-content-card'>
@@ -41,24 +37,24 @@ const ContactInfo = (props) => {
               <div className='card-body'>
                 <div className='d-flex flex-column align-items-center text-center'>
                   <ContactAvatar
-                    name={contact.fname + ' ' + contact.lname}
+                    name={contact.name + ' ' + contact.name}
                     className={'info-avatar'}
                   />
                   <div className='mt-3 w-100'>
                     <h4 className='m-auto fullname'>
-                      {contact.fname + ' ' + contact.lname}
+                      {contact.name}
                     </h4>
                     <p className='mb-1 text-secondary'>
-                      {contact.Role} @ {contact.company}
+                      {contact.company.name}
                     </p>
                   </div>
                 </div>
                 <div className='row mt-3'>
                   <div className='col-4'>
-                    <h6 className=' mb-0 text-secondary'>Full Name</h6>
+                    <h6 className=' mb-0 text-secondary'>Имя</h6>
                   </div>
                   <div className='col-8 truncate-string'>
-                    {contact.fname} {contact.lname}
+                    {contact.name}
                   </div>
                 </div>
                 <hr />
@@ -71,30 +67,30 @@ const ContactInfo = (props) => {
                 <hr />
                 <div className='row'>
                   <div className='col-4'>
-                    <h6 className=' mb-0 text-secondary'>Phone</h6>
+                    <h6 className=' mb-0 text-secondary'>Номер</h6>
                   </div>
                   <div className='col-8  '>{contact.phone}</div>
                 </div>
                 <hr />
                 <div className='row'>
                   <div className='col-4'>
-                    <h6 className=' mb-0 text-secondary'>Company</h6>
+                    <h6 className=' mb-0 text-secondary'>Компания</h6>
                   </div>
-                  <div className='col-8  '>{contact.company}</div>
+                  <div className='col-8  '>{contact.company.name}</div>
                 </div>
                 <hr />
                 <div className='row'>
                   <div className='col-4'>
-                    <h6 className=' mb-0 text-secondary'>Address</h6>
+                    <h6 className=' mb-0 text-secondary'>Адрес</h6>
                   </div>
-                  <div className='col-8  '>{contact.address}</div>
+                  <div className='col-8  '>{contact.address.city}</div>
                 </div>
                 <hr />
                 <div className='row'>
                   <div className='col-12 d-flex justify-content-center'>
                     <ContactButton
                       btnIcon={'pencil'}
-                      btnText={'Edit Contact'}
+                      btnText={'Редактировать контакт'}
                       setModalShow={props.setModalShow}
                       setIsEdit={props.setIsEdit}
                     />

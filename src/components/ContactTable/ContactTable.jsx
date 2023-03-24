@@ -19,20 +19,45 @@ const ContactTable = ({
   useEffect(() => {
     const filteredContacts = contacts.filter(
       (contact) =>
-        contact.fname.toLowerCase().includes(filterText.toLowerCase()) ||
-        contact.lname.toLowerCase().includes(filterText.toLowerCase()) ||
+        contact.name.toLowerCase().includes(filterText.toLowerCase()) ||
         (
-          contact.fname.toLowerCase() +
-          ' ' +
-          contact.lname.toLowerCase()
+          contact.name.toLowerCase()
         ).includes(filterText.toLowerCase()) ||
-        contact.company.toLowerCase().includes(filterText.toLowerCase()) ||
         contact.email.toLowerCase().includes(filterText.toLowerCase()) ||
-        contact.phone.toLowerCase().includes(filterText.toLowerCase()) ||
-        contact.Role.toLowerCase().includes(filterText.toLowerCase())
+        contact.phone.toLowerCase().includes(filterText.toLowerCase()) 
     );
     setContactList(filteredContacts);
   }, [contacts, filterText]);
+
+  const contactListSorted = contactList.sort((a, b) => {
+    const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+    const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+  
+    // names must be equal
+    return 0;
+  });
+
+  const contactListBinned = contactListSorted.reduce((result, word) => {
+    // get the first letter. (this assumes no empty words in the list)
+    const letter = word[0];
+    
+    // ensure the result has an entry for this letter
+    result[letter] = result[letter] || [];
+    
+    // add the word to the letter index
+    result[letter].push(word);
+    
+    // return the updated result
+    return result;
+  }, {})
+  
+  console.log(contactListBinned);
 
   return (
     <div className='main-content-list'>
@@ -40,14 +65,14 @@ const ContactTable = ({
         <thead>
           <tr>
             <th className='text-center col-1'>+</th>
-            <th className='text-secondary col-5'>Basic Info</th>
-            <th className='text-secondary col-5'>Company</th>
+            <th className='text-secondary col-5'>Контакт</th>
+            <th className='text-secondary col-5'>Номер</th>
             <th className='text-center p-1 col-1'></th>
           </tr>
         </thead>
         <tbody>
-          {contactList.length > 0 ? (
-            contactList.map((contact, index) => (
+          {contactListSorted.length > 0 ? (
+            contactListSorted.map((contact, index) => (
               <ContactRow
                 key={index}
                 contact={contact}
@@ -62,7 +87,7 @@ const ContactTable = ({
           ) : (
             <tr>
               <td colSpan='4' className='text-center text-secondary fw-bold'>
-                No contacts found
+                Не найдено контактов
               </td>
             </tr>
           )}

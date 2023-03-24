@@ -14,7 +14,7 @@ const SearchBar = ({ filterText, setFilterText }) => {
           title='Search'
           className='search-input'
           type='text'
-          placeholder='Search contacts'
+          placeholder='Поиск контактов'
           value={filterText}
           onChange={handleSearchInputText}
         />

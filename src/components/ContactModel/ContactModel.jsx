@@ -14,13 +14,11 @@ function ContactModel({
 }) {
   const initialContact = {
     id: '_' + Math.random().toString(36).substr(2, 9),
-    fname: '',
-    lname: '',
+    name: '',
     email: '',
     phone: '',
-    company: '',
-    Role: '',
-    address: '',
+    company: {name: ''},
+    address: {city: ''},
   };
   const [contact, setContact] = useState(initialContact);
 
@@ -62,46 +60,27 @@ function ContactModel({
         <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
           <Row className='mb-3'>
             <Form.Group as={Col} md='6' controlId='validationCustomFirstName'>
-              <Form.Label>First Name</Form.Label>
+              <Form.Label>Имя</Form.Label>
               <Form.Control
                 type='text'
-                pattern='^\S[A-Za-z\s]{1,32}\S$'
-                placeholder='Enter First Name'
-                value={contact.fname}
+                placeholder='Введите имя'
+                value={contact.name}
                 onChange={(e) =>
-                  setContact({ ...contact, fname: e.target.value })
+                  setContact({ ...contact, name: e.target.value })
                 }
                 required
               />
               <Form.Control.Feedback type='invalid'>
-                Please enter a valid first name.
+                Пожалуйста введите правильно имя.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md='6' controlId='validationCustomLastName'>
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                type='text'
-                pattern='^\S[A-Za-z\s]{1,32}\S$'
-                placeholder='Enter last name'
-                value={contact.lname}
-                onChange={(e) =>
-                  setContact({ ...contact, lname: e.target.value })
-                }
-                required
-              />
-              <Form.Control.Feedback type='invalid'>
-                Please enter a valid last name.
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Row>
-          <Row className='mb-3'>
             <Form.Group as={Col} md='6' controlId='validationCustomEmail'>
               <Form.Label>Email</Form.Label>
               <InputGroup hasValidation>
                 <Form.Control
                   type='email'
-                  pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'
-                  placeholder='Enter Email'
+                  pattern='^[^\s@]+@[^\s@]+\.[^\s@]+$'
+                  placeholder='Введите Email'
                   aria-describedby='inputGroupPrepend'
                   value={contact.email}
                   onChange={(e) =>
@@ -110,16 +89,17 @@ function ContactModel({
                   required
                 />
                 <Form.Control.Feedback type='invalid'>
-                  Please provide a valid email.
+                  Пожалуйста введите валидный email.
                 </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
+          </Row>
+          <Row className='mb-3'>
             <Form.Group as={Col} md='6' controlId='validationPhoneNumber'>
-              <Form.Label>Phone Number</Form.Label>
+              <Form.Label>Номер телефона</Form.Label>
               <Form.Control
-                type='tel'
-                pattern='^(7|8|9)\d{9}$'
-                placeholder='Enter Phone Number'
+                type="text"
+                placeholder='Введите номер телефона'
                 value={contact.phone}
                 onChange={(e) =>
                   setContact({ ...contact, phone: e.target.value })
@@ -127,85 +107,48 @@ function ContactModel({
                 required
               />
               <Form.Control.Feedback type='invalid'>
-                Please provide a valid phone number.
+                Пожалуйста введи валидный номер.
               </Form.Control.Feedback>
             </Form.Group>
-          </Row>
-          <Row className='mb-3'>
             <Form.Group as={Col} md='6' controlId='validationCustom04'>
-              <Form.Label>Company</Form.Label>
+              <Form.Label>Компания</Form.Label>
               <Form.Control
                 type='text'
-                pattern='^\S[A-Za-z1-9\s.]{1,100}\S$'
-                placeholder='Enter Company Name'
-                value={contact.company}
+                placeholder='Введите название компании'
+                value={contact.company.name}
                 onChange={(e) =>
-                  setContact({ ...contact, company: e.target.value })
+                  setContact({ ...contact, company: { name: e.target.value } })
                 }
                 required
               />
               <Form.Control.Feedback type='invalid'>
-                Please enter a valid compane name.
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md='6' controlId='validationCustom05'>
-              <Form.Label>Role</Form.Label>
-              <Form.Select
-                aria-label='Default select example'
-                value={contact.Role}
-                onChange={(e) =>
-                  setContact({ ...contact, Role: e.target.value })
-                }
-                required
-              >
-                <option disabled value=''>
-                  Select Your Role...
-                </option>
-                <option value='Chief Executive Officer'>
-                  Chief Executive Officer
-                </option>
-                <option value='Chief Operating Officer'>
-                  Chief Operating Officer
-                </option>
-                <option value='Chief Financial Officer'>
-                  Chief Financial Officer
-                </option>
-                <option value='Executive Assistant'>Executive Assistant</option>
-                <option value='President'>President</option>
-                <option value='Vice President'>Vice President</option>
-                <option value='Product Manager'>Product Manager</option>
-                <option value='Purchasing Manager'>Purchasing Manager</option>
-                <option value='Project Manager'>Project Manager</option>
-                <option value='Finance Manager'>Finance Manager</option>
-              </Form.Select>
-              <Form.Control.Feedback type='invalid'>
-                Please select a valid role.
+                Пожалуйста введите валидное название компании.
               </Form.Control.Feedback>
             </Form.Group>
           </Row>
           <Row className='mb-3'>
             <Form.Group as={Col} md='12' controlId='validationAddress'>
-              <Form.Label>Address</Form.Label>
+              <Form.Label>Адрес</Form.Label>
               <Form.Control
                 as='textarea'
-                placeholder='Enter address here'
+                placeholder='Введите адрес'
                 rows={5}
-                value={contact.address}
+                value={contact.address.city}
                 onChange={(e) =>
-                  setContact({ ...contact, address: e.target.value })
+                  setContact({ ...contact, address: { city: e.target.value }})
                 }
                 required
               />
               <Form.Control.Feedback type='invalid'>
-                Please provide a valid address.
+                Пожалуйста введите валидный адрес.
               </Form.Control.Feedback>
             </Form.Group>
           </Row>
           <Modal.Footer>
             <Button variant='secondary' onClick={onHide}>
-              Cancel
+              Отмена
             </Button>
-            <Button type='submit'>Save</Button>
+            <Button type='submit'>Сохранить</Button>
           </Modal.Footer>
         </Form>
       </Modal.Body>

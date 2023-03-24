@@ -34,14 +34,14 @@ const ContactRow = ({
         <div className='contact d-flex'>
           <div className='contact-avatar m-2'>
             <ContactAvatar
-              name={contact.fname + ' ' + contact.lname}
+              name={contact.name + ' ' + contact.name}
               className='list-avatar'
             />
           </div>
           <div className='contact-info d-flex flex-column justify-content-center m-2'>
             <div className='contact-info-name truncate-string'>
               <p className='m-0 truncate-string'>
-                {contact.fname} {contact.lname}
+                {contact.name}
               </p>
             </div>
             <div className='contact-info-email'>
@@ -56,7 +56,7 @@ const ContactRow = ({
       </td>
       <td className='align-middle' onClick={() => showActiveUser(contact.id)}>
         <div className='company-name d-flex align-items-center m-auto'>
-          <p className='m-0 truncate-string'>{contact.company}</p>
+          <p className='m-0 truncate-string'>{contact.phone}</p>
         </div>
       </td>
       <td className='align-middle text-center' title='Delete Contact'>

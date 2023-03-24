@@ -15,7 +15,7 @@ const ContactButton = ({
   return (
     <>
       <Button
-        title={btnType === 'add' ? 'Add Contact' : 'Edit Contact'}
+        title={btnType === 'add' ? 'Добавить контакт' : 'Редактировать контакт'}
         variant='default'
         onClick={() => {
           setModalShow(true);
